@@ -37,6 +37,15 @@ class DatePicker extends StatefulWidget {
   /// TextStyle for the date Value
   final TextStyle dateTextStyle;
 
+  //// TextStyle for the selected date Value
+  final TextStyle selectedDateStyle;
+
+  //// TextStyle for the selected month Value
+  final TextStyle selectedMonthStyle;
+
+  //// TextStyle for the selected day Value
+  final TextStyle selectedDayStyle;
+
   /// Current Selected Date
   final DateTime initialSelectedDate;
 
@@ -67,6 +76,9 @@ class DatePicker extends StatefulWidget {
     this.monthTextStyle = defaultMonthTextStyle,
     this.dayTextStyle = defaultDayTextStyle,
     this.dateTextStyle = defaultDateTextStyle,
+    this.selectedMonthStyle = defaultMonthTextStyle,
+    this.selectedDayStyle = defaultDayTextStyle,
+    this.selectedDateStyle = defaultDateTextStyle,
     this.selectedTextColor = Colors.white,
     this.selectionColor = AppColors.defaultSelectionColor,
     this.deactivatedColor = AppColors.defaultDeactivatedColor,
@@ -90,10 +102,6 @@ class _DatePickerState extends State<DatePicker> {
 
   ScrollController _controller = ScrollController();
 
-  TextStyle selectedDateStyle;
-  TextStyle selectedMonthStyle;
-  TextStyle selectedDayStyle;
-
   TextStyle deactivatedDateStyle;
   TextStyle deactivatedMonthStyle;
   TextStyle deactivatedDayStyle;
@@ -108,13 +116,6 @@ class _DatePickerState extends State<DatePicker> {
     if (widget.controller != null) {
       widget.controller.setDatePickerState(this);
     }
-
-    this.selectedDateStyle =
-        createTextStyle(widget.dateTextStyle, widget.selectedTextColor);
-    this.selectedMonthStyle =
-        createTextStyle(widget.monthTextStyle, widget.selectedTextColor);
-    this.selectedDayStyle =
-        createTextStyle(widget.dayTextStyle, widget.selectedTextColor);
 
     this.deactivatedDateStyle =
         createTextStyle(widget.dateTextStyle, widget.deactivatedColor);
@@ -191,13 +192,19 @@ class _DatePickerState extends State<DatePicker> {
             date: date,
             monthTextStyle: isDeactivated
                 ? deactivatedMonthStyle
-                : isSelected ? selectedMonthStyle : widget.monthTextStyle,
+                : isSelected
+                    ? widget.selectedMonthStyle
+                    : widget.monthTextStyle,
             dateTextStyle: isDeactivated
                 ? deactivatedDateStyle
-                : isSelected ? selectedDateStyle : widget.dateTextStyle,
+                : isSelected
+                    ? widget.selectedDateStyle
+                    : widget.dateTextStyle,
             dayTextStyle: isDeactivated
                 ? deactivatedDayStyle
-                : isSelected ? selectedDayStyle : widget.dayTextStyle,
+                : isSelected
+                    ? widget.selectedDayStyle
+                    : widget.dayTextStyle,
             width: widget.width,
             locale: widget.locale,
             selectionColor:
@@ -207,7 +214,7 @@ class _DatePickerState extends State<DatePicker> {
               if (isDeactivated) return;
 
               // A date is selected
-              if (widget.onDateChange != null ) {
+              if (widget.onDateChange != null) {
                 widget.onDateChange(selectedDate);
               }
               setState(() {
