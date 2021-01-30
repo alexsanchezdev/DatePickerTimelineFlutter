@@ -8,6 +8,7 @@
 import 'package:date_picker_timeline/gestures/tap.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:strings/strings.dart';
 
 class DateWidget extends StatelessWidget {
   final double width;
@@ -45,16 +46,20 @@ class DateWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Text(
-                  new DateFormat("MMM", locale)
-                      .format(date)
-                      .replaceAll('.', ''), // Month
+                  capitalize(
+                    new DateFormat("MMM", locale)
+                        .format(date)
+                        .replaceAll('.', ''),
+                  ), // Month
                   style: monthTextStyle),
               Text(date.day.toString(), // Date
                   style: dateTextStyle),
               Text(
-                  new DateFormat("E", locale)
-                      .format(date)
-                      .replaceAll('.', ''), // WeekDay
+                  capitalize(
+                    new DateFormat("E", locale)
+                        .format(date)
+                        .replaceAll('.', ''),
+                  ), // WeekDay
                   style: dayTextStyle)
             ],
           ),
