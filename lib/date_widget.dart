@@ -11,19 +11,19 @@ import 'package:intl/intl.dart';
 import 'package:strings/strings.dart';
 
 class DateWidget extends StatelessWidget {
-  final double width;
+  final double? width;
   final DateTime date;
-  final TextStyle monthTextStyle, dayTextStyle, dateTextStyle;
+  final TextStyle? monthTextStyle, dayTextStyle, dateTextStyle;
   final Color selectionColor;
-  final DateSelectionCallback onDateSelected;
-  final String locale;
+  final DateSelectionCallback? onDateSelected;
+  final String? locale;
 
   DateWidget({
-    @required this.date,
-    @required this.monthTextStyle,
-    @required this.dayTextStyle,
-    @required this.dateTextStyle,
-    @required this.selectionColor,
+    required this.date,
+    required this.monthTextStyle,
+    required this.dayTextStyle,
+    required this.dateTextStyle,
+    required this.selectionColor,
     this.width,
     this.onDateSelected,
     this.locale,
@@ -69,7 +69,7 @@ class DateWidget extends StatelessWidget {
         // Check if onDateSelected is not null
         if (onDateSelected != null) {
           // Call the onDateSelected Function
-          onDateSelected(this.date);
+          onDateSelected!(this.date);
         }
       },
     );
